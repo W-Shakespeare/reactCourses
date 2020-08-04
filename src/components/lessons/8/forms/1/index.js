@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 function sendEmail(name, mail, message) {
-  const params = {name, mail, message};
-  let alertText = 'Email sending request in process.\nEmail params:\n';
-  alertText += Object.keys(params).map(i => `${i}: ${params[i]}`).join('\n');
+  const params = { name, mail, message };
+  let alertText = "Email sending request in process.\nEmail params:\n";
+  alertText += Object.keys(params)
+    .map((i) => `${i}: ${params[i]}`)
+    .join("\n");
   alert(alertText);
 }
 
@@ -13,23 +15,42 @@ class UncontrolledForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.nameRef = React.createRef();
     this.mailRef = React.createRef();
-    // change code below this line
-
-    // change code above this line
+    this.messageRef = React.createRef();
   }
 
-  handleSubmit = () => {
-    // change code below this line
-
+  handleSubmit = (e) => {
+    e.preventDefault();
     //sendEmail(name, mail, message);
-    // change code above this line
+    sendEmail(
+      this.nameRef.current.value,
+      this.mailRef.current.value,
+      this.messageRef.current.value
+    );
   };
 
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         {/* change code below this line */}
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input ref={this.nameRef} type="text" id="name" name="user_name" />
+        </div>
 
+        <div>
+          <label htmlFor="mail">E-mail:</label>
+          <input ref={this.mailRef} type="email" id="mail" name="user_mail" />
+        </div>
+
+        <div>
+          <label htmlFor="msg">Message:</label>
+          <textarea
+            ref={this.messageRef}
+            id="msg"
+            name="user_message"
+          ></textarea>
+        </div>
+        <button type="submit">Submit!</button>
         {/* change code above this line */}
       </form>
     );
@@ -39,7 +60,7 @@ class UncontrolledForm extends Component {
 const Task = () => {
   return (
     <div>
-      <UncontrolledForm/>
+      <UncontrolledForm />
     </div>
   );
 };

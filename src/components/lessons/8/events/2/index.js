@@ -1,57 +1,61 @@
-import React from 'react';
-//import debounce from 'lodash/debounce';
+import React from "react";
+import { debounce } from "lodash";
 
 class WindowSize extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {height: '', width: ''};
-    { /* change code below this line */ }
+    this.state = { height: "", width: "" };
 
-    { /* change code above this line */ }
+    /* change code below this line */
+
+    /* change code above this line */
   }
 
   componentDidMount() {
-    this.storeWindowSize(this.getWindowSize());
+    this.getWindowSize();
     /* change code below this line */
+
+    window.addEventListener(`resize`, this.onResize, false);
 
     /* change code above this line */
   }
 
   componentWillUnmount() {
     /* change code below this line */
-
+    window.removeEventListener(`resize`, this.onResize, false);
+    this.onResize.cancel();
     /* change code above this line */
   }
 
   getWindowSize() {
     const height = window.innerHeight;
     const width = window.innerWidth;
-    return { height, width };
+    this.setState({ height, width });
   }
 
-  storeWindowSize({ height, width }) {
-    this.setState({height, width});
-  }
-
-  onResize() {
-    this.storeWindowSize(this.getWindowSize());
-  }
+  onResize = debounce(() => {
+    this.getWindowSize();
+  }, 500);
 
   render() {
     const { height, width } = this.state;
-    return <div>
-      <h2>Window size</h2>
-      <div>Window height: {height} px, window width: {width} px</div>
-      <br/>
-      <textarea/>
-    </div>
+    return (
+      <div>
+        <h2>Window size</h2>
+        <div>
+          Window height: {height} px, window width: {width} px
+        </div>
+        <br />
+        <textarea />
+      </div>
+    );
   }
 }
 
 const Task = () => {
   return (
-    <div className="task" >
-      <WindowSize/>
+    <div className="task">
+      <WindowSize />
     </div>
   );
 };

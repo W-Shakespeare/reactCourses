@@ -1,18 +1,13 @@
-import React from 'react';
+import React from "react";
 
-const friends = [
-  'Mikenzi',
-  'Cash',
-  'Steven',
-  'Kimmy',
-  'Doug'
-];
+const friends = ["Mikenzi", "Cash", "Steven", "Kimmy", "Doug"];
 
 const List = () => {
-  // Render a list using the "friends" being passed in.
   return (
     <ul>
-
+      {friends.map((friend, i) => {
+        return <li key={`${friend.id}${i}`}>{friend}</li>;
+      })}
     </ul>
   );
 };

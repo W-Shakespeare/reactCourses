@@ -1,23 +1,24 @@
-import React from 'react';
+import React from "react";
 
-import './style.css';
+import "./style.css";
 
 const list = [
   {
-    title: 'React',
-    url: 'https://reactjs.org/',
-    author: 'Jordan Walke',
+    title: "React",
+    url: "https://reactjs.org/",
+    author: "Jordan Walke",
     id: 0,
   },
   {
-    title: 'Redux',
-    url: 'https://redux.js.org/',
-    author: 'Dan Abramov, Andrew Clark',
+    title: "Redux",
+    url: "https://redux.js.org/",
+    author: "Dan Abramov, Andrew Clark",
     id: 1,
   },
 ];
 
-const isSearched = searchTerm => item => item.title.toLowerCase().includes(searchTerm.toLowerCase());
+const isSearched = (searchTerm) => (item) =>
+  item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
 class Search extends React.Component {
   constructor(props) {
@@ -25,49 +26,46 @@ class Search extends React.Component {
     const { list } = props;
     this.state = {
       list,
-      searchTerm: '',
+      searchTerm: "",
     };
   }
 
   onSearchChange(event) {
-    const value = '';// your code is here
-    this.setState({ searchTerm: value });
+    //delete this str
+    this.setState({ searchTerm: event.target.value });
   }
 
-  onDismiss(e) {
-    const itemId = '';// your code is here
-    const updatedList = this.state.list.filter(item => item.id !== itemId);
+  onDismiss = (id) => {
+    const updatedList = this.state.list.filter((item) => item.id !== id); // I transfered id
     this.setState({ list: updatedList });
-  }
+  };
 
   render() {
     return (
       <div className="search">
         <form>
-          <input
-            type="text"
-            onChange={this.onSearchChange}
-          />
+          <input type="text" onChange={this.onSearchChange.bind(this)} />
         </form>
-        <ul className="items-list" >
-          {this.state.list.filter(isSearched(this.state.searchTerm)).map(item => {
-            const { id, url, title, author } = item;
-            return (
-              <li className="list-item" >
-                <span>
-                  <a href={url}>{title}</a> -
-                  {` ${author}`}
-                </span>
-                <button
-                  onClick={this.onDismiss}
-                  type="button"
-                  data-id={id}
-                >
-                  Dismiss
-                </button>
-              </li>
-            );
-          })}
+        <ul className="items-list">
+          {this.state.list
+            .filter(isSearched(this.state.searchTerm))
+            .map((item) => {
+              const { id, url, title, author } = item;
+              return (
+                <li className="list-item">
+                  <span>
+                    <a href={url}>{title}</a> -{` ${author}`}
+                  </span>
+                  <button
+                    onClick={() => this.onDismiss(id)}
+                    type="button"
+                    data-id={id}
+                  >
+                    Dismiss
+                  </button>
+                </li>
+              );
+            })}
         </ul>
       </div>
     );

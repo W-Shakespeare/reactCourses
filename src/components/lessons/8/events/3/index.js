@@ -1,36 +1,33 @@
-import React from 'react';
+import React from "react";
 
 class ClickCounter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemCount: 0
+      itemCount: 0,
     };
-    // change code below this line
-
-    // change code above this line
   }
-  addItem() {
+  addItem = () => {
     this.setState(({ itemCount }) => ({
-      itemCount: itemCount + 1
+      itemCount: itemCount + 1,
     }));
-  }
+  };
   render() {
     return (
       <div>
-        { /* change code below this line */ }
-        <button>Click Me</button>
-        { /* change code above this line */ }
+        {/* change code below this line */}
+        <button onClick={this.addItem}>Click Me</button>
+        {/* change code above this line */}
         <h1>Current click count: {this.state.itemCount}</h1>
       </div>
     );
   }
-};
+}
 
 const Task = () => {
   return (
-    <div className="task" >
-      <ClickCounter/>
+    <div className="task">
+      <ClickCounter />
     </div>
   );
 };

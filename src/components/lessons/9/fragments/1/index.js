@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import faker from 'faker';
-import Chance from 'chance';
+import faker from "faker";
+import Chance from "chance";
 
 const MIN_ID = 0;
 const MAX_ID = 400;
@@ -13,28 +13,32 @@ const chance = Chance();
 const generateData = (count) => {
   const ids = chance.unique(chance.integer, count, {
     min: MIN_ID,
-    max: MAX_ID
+    max: MAX_ID,
   });
-  return ids.map(id => (
-    { id: id, title: faker.lorem.sentence(), body: faker.lorem.paragraphs(2) }
-  ));
+  return ids.map((id) => ({
+    id: id,
+    title: faker.lorem.sentence(),
+    body: faker.lorem.paragraphs(2),
+  }));
 };
 
 const data = generateData(MIN_COUNT);
 
 const Articles = ({ data }) => {
-  return null; //remove this line
-  //uncomment and fix the code below
-  /*return (
-    <h1>Articles</h1>
-    <div>
-      {data.map(({ title, body }) => (
-        <h3>{title}</h3>
-        <p>{body}</p>
-      ))}
-    </div>
-  );*/
-}
+  return (
+    <>
+      <h1>Articles</h1>
+      <div>
+        {data.map(({ id, title, body }) => (
+          <React.Fragment key={id}>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </React.Fragment>
+        ))}
+      </div>
+    </>
+  );
+};
 
 const Task = () => {
   return (

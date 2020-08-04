@@ -1,45 +1,47 @@
-import React from 'react';
+import React from "react";
 
 class FIO extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', patronymic: '', surname: ''};
+    this.state = { name: "", patronymic: "", surname: "" };
 
     /* change code below this line */
-
+    this.onNameChange = this.onNameChange.bind(this);
     /* change code above this line */
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { name, patronymic, surname, } = this.state;
+    const { name, patronymic, surname } = this.state;
     const message = `
     name: ${name}
     patronymic: ${patronymic}
     surname: ${surname}
     `;
     alert(message);
-  }
+  };
 
   onNameChange(e) {
     const value = e.target.value;
-    this.setState({name: value});
+    this.setState({ name: value });
   }
 
-  onPatronymicChange(e) {// your code is here
+  onPatronymicChange = (e) => {
     const value = e.target.value;
-    this.setState({patronymic: value});
-  }
+    this.setState({ patronymic: value });
+  };
 
   onSurnameChange(e) {
     const value = e.target.value;
-    this.setState({surname: value});
+    this.setState({ surname: value });
   }
 
   render() {
     const {
-      state: {name, patronymic, surname},
-      onNameChange, onPatronymicChange, onSurnameChange
+      state: { name, patronymic, surname },
+      onNameChange,
+      onPatronymicChange,
+      onSurnameChange,
     } = this;
     return (
       <form onSubmit={this.onSubmit}>
@@ -47,18 +49,22 @@ class FIO extends React.Component {
           name:&nbsp;
           <input type="text" value={name} onChange={onNameChange} />
         </label>
-        <br/>
+        <br />
         <label>
           patronymic:&nbsp;
           <input type="text" value={patronymic} onChange={onPatronymicChange} />
         </label>
-        <br/>
+        <br />
         <label>
           surname:&nbsp;
-          <input type="text" value={surname} onChange={/*your code is here*/onSurnameChange} />
+          <input
+            type="text"
+            value={surname}
+            onChange={onSurnameChange.bind(this)}
+          />
         </label>
-        <br/>
-        <button type='submit'>Submit!</button>
+        <br />
+        <button type="submit">Submit!</button>
       </form>
     );
   }
@@ -66,8 +72,8 @@ class FIO extends React.Component {
 
 const Task = () => {
   return (
-    <div className="task" >
-      <FIO/>
+    <div className="task">
+      <FIO />
     </div>
   );
 };
